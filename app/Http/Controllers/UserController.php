@@ -20,7 +20,14 @@ class UserController extends Controller
         ]);
 
         $incomingFields['password'] = bcrypt($incomingFields['password']);
-        User::create($incomingFields);
-        return 'Thank you for registering';
+        $user = User::create($incomingFields);
+        auth()->login($user);
+        return redirect('/');
+        // return 'Thank you for registering';
+    }
+
+    function logout(){
+        auth()->logout();
+        return redirect('/');
     }
 }
